@@ -18,18 +18,28 @@ public class AssetLoader {
 
 
     public static void load() {
+        cards = new TextureRegion[15];
         logoTexture = new Texture(Gdx.files.internal("data/JT_logo.png"));
+
         logoTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        testCard = new Texture(Gdx.files.internal("cards/A.png"));
-        testCard.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
-        flatCards = new Texture(Gdx.files.internal("cards/set.png"));
 
-        anotherTest = new TextureRegion(flatCards,64,855,60,90);
+        flatCards = new Texture(Gdx.files.internal("cards/collectionOfCards.png"));
+        flatCards.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+
+        int gap = 255;
+
+        for(int i=0; i < 15; i++){
+            cards[i] = new TextureRegion(flatCards,i*gap,0,255,380);
+            cards[i].flip(false,true);
+
+        }
 
         logo = new TextureRegion(logoTexture,0 ,0, 415,295);
 
-        testAce = new TextureRegion(testCard);
+
+        //testAce = new TextureRegion(testCard);
+
 
 
 

@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.jtsoftware.GameRenderer.GameRenderer;
 import com.jtsoftware.GameWorld.GameWorld;
 import com.jtsoftware.Helpers.ActionResolver;
+import com.jtsoftware.Helpers.SimpleDirectionGestureDetector;
 
 /**
  * Created by Jonty on 23/08/2015.
@@ -30,6 +31,33 @@ public class GameScreen implements Screen {
 
         int midPointY = (int) (gameHeight / 2);
         world = new GameWorld(resolver);
+
+        Gdx.input.setInputProcessor(new SimpleDirectionGestureDetector(new SimpleDirectionGestureDetector.DirectionListener() {
+            @Override
+            public void onUp() {
+               System.out.println("Jumped up!!");
+            }
+
+            @Override
+            public void onRight() {
+
+
+            }
+
+            @Override
+            public void onLeft() {
+
+
+            }
+
+            @Override
+            public void onDown() {
+                // TODO Auto-generated method stub
+
+            }
+
+        }));
+
         renderer = new GameRenderer(world, (int) gameHeight);
         world.setRenderer(renderer);
     }

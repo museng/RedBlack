@@ -35,15 +35,21 @@ public class GameRenderer {
 
     public void render(float delta){
 
-        Gdx.gl.glClearColor(0,0,0,0);
+        Gdx.gl.glClearColor(0, 0, 0, 0);
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
 
         batcher.begin();
-        batcher.draw(AssetLoader.testAce, 30, 40, 100, 200);
 
-        batcher.draw(AssetLoader.testAce,0,0,AssetLoader.testAce.getRegionWidth()/5,AssetLoader.testAce.getRegionHeight()/5);
-        //System.out.println("test");
+        int row = 0;
 
+        for(int i = 0; i < 15; i++){
+
+            if((i>2) && (i%3 ==0)) row++;
+            batcher.draw(AssetLoader.cards[i],((i%3)*50),(row*80),AssetLoader.cards[i].getRegionWidth()/6,AssetLoader.cards[i].getRegionHeight()/6);
+            //System.out.println("pasting card at i="+(i*40)+" y=" + (j*80) + "res="+AssetLoader.cards[i].getRegionWidth()/6+"x"+AssetLoader.cards[i].getRegionHeight()/6);
+
+
+        }
 
         batcher.end();
 
