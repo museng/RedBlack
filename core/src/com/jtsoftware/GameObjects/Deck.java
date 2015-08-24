@@ -1,22 +1,19 @@
 package com.jtsoftware.GameObjects;
 
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.Collections;
 
 /**
  * Created by Jonty on 24/08/2015.
  */
 public class Deck {
-    enum Suit {CLUB, HEART, SPADE, DIAMOND}
-    Random numGen;
+
     int remainingCards;
     ArrayList<Card> cards;
 
     public Deck(){
         cards = new ArrayList<Card>();
         remainingCards = 52;
-        numGen = new Random();
-
         resetPack();
     }
 
@@ -24,24 +21,27 @@ public class Deck {
         if (remainingCards < 1) {
             return null;
         }
-        int cardIndex = numGen.nextInt(this.remainingCards);
         this.remainingCards -= 1;
-        return cards.remove(cardIndex);
+        return cards.remove(0);
     }
 
     public void Shuffle(){
-        //Do something maybe.
-
+        Collections.shuffle(this.cards);
     }
+
+    public boolean isEmpty() {
+        return remainingCards <= 0;
+    }
+
+
     public void resetPack(){
         cards.clear();
-
-        for(Suit suite : Suit.values()){
-
-            for(int i = 1; i < 15; i++){
-                cards.add(new Card(suite.name(), i));
+        for(Card.Suit suit : Card.Suit.values()){
+            for(Card.CardValue value: Card.CardValue.values()){
+                cards.add(new Card(suit, value));
             }
 
         }
+        this.Shuffle();
     }
 }
