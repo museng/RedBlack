@@ -8,7 +8,7 @@ public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 
-		config.title = "TapDash";
+		config.title = "Red | Black";
 //		cfg.useGL20 = false;
 		config.width = 1080 / 3;
 		config.height = 1920 / 3;

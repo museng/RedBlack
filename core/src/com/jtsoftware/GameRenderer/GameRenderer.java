@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.jtsoftware.GameWorld.GameWorld;
 import com.jtsoftware.Helpers.AssetLoader;
 
+import java.util.Random;
+
 /**
  * Created by Jonty on 24/08/2015.
  */
@@ -41,13 +43,23 @@ public class GameRenderer {
         batcher.begin();
 
         int row = 0;
+        boolean seizure = true;
 
-        for(int i = 0; i < 15; i++){
+        if(!seizure) {
+            for (int i = 0; i < 15; i++) {
 
-            if((i>2) && (i%3 ==0)) row++;
-            batcher.draw(AssetLoader.cards[i],((i%3)*50),(row*80),AssetLoader.cards[i].getRegionWidth()/6,AssetLoader.cards[i].getRegionHeight()/6);
-            //System.out.println("pasting card at i="+(i*40)+" y=" + (j*80) + "res="+AssetLoader.cards[i].getRegionWidth()/6+"x"+AssetLoader.cards[i].getRegionHeight()/6);
+                if ((i > 2) && (i % 3 == 0)) row++;
+                batcher.draw(AssetLoader.cards[i], ((i % 3) * 50), (row * 80), AssetLoader.cards[i].getRegionWidth() / 6, AssetLoader.cards[i].getRegionHeight() / 6);
+                //System.out.println("pasting card at i="+(i*40)+" y=" + (j*80) + "res="+AssetLoader.cards[i].getRegionWidth()/6+"x"+AssetLoader.cards[i].getRegionHeight()/6);
 
+
+            }
+        }
+        else{
+            int x = new Random().nextInt(100);
+            int y = new Random().nextInt(300);
+            int c = new Random().nextInt(15);
+            batcher.draw(AssetLoader.cards[c], x, y, AssetLoader.cards[c].getRegionWidth() / 6, AssetLoader.cards[c].getRegionHeight() / 6);
 
         }
 
