@@ -42,7 +42,7 @@ public class GameRenderer {
         batcher.draw(AssetLoader.testAce, 30, 40, 100, 200);
 
         batcher.draw(AssetLoader.testAce,0,0,AssetLoader.testAce.getRegionWidth()/5,AssetLoader.testAce.getRegionHeight()/5);
-
+        System.out.println("test");
 
 
         batcher.end();
