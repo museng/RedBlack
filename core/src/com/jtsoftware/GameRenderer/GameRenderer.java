@@ -45,6 +45,7 @@ public class GameRenderer {
         int row = 0;
         boolean seizure = true;
 
+
         if(!seizure) {
             for (int i = 0; i < 15; i++) {
 
