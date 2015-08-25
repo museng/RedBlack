@@ -5,31 +5,110 @@ import com.jtsoftware.GameObjects.Deck;
 import com.jtsoftware.GameRenderer.GameRenderer;
 import com.jtsoftware.Helpers.ActionResolver;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 /**
  * Created by Jonty on 24/08/2015.
  */
 public class GameWorld {
-    private enum gamePhase {redOrBlack, upOrDown, inOrOut}
+    private enum GamePhase {REDBLACK, UPDOWN, INOUT}
+    private enum Choice {RED(0), BLACK(1), UP(0), DOWN(1), IN(0), OUT(1);
+        private int choiceValue;
+        private Choice(int value) {
+            this.choiceValue = value;
+        }
+        public int getValue() {
+            return this.choiceValue;
+        }
+    }
     private ActionResolver resolver;
     private GameRenderer renderer;
     private Deck deck;
+    private Card newCard;
+    private GamePhase phase;
+    private boolean wasCorrect;
+    private ArrayList<Card> prevCards;
+    private Random RANDOM = new Random();
+
 
     public GameWorld(ActionResolver resolver){
+        this.wasCorrect = true;
         this.resolver = resolver;
+        this.phase = GamePhase.REDBLACK;
+        this.deck = new Deck();
+        this.prevCards = new ArrayList<Card>();
+    }
 
-        deck = new Deck();
+    public boolean isCorrect(int choice) {
+        if (this.phase == GamePhase.REDBLACK) {
+            if (choice == Choice.RED.getValue()) {
+                return this.newCard.getColour() == Card.Colour.RED;
+            } else {
+                return this.newCard.getColour() == Card.Colour.BLACK;
+            }
 
+        } else if (this.phase == GamePhase.UPDOWN) {
+            if (choice == Choice.UP.getValue()) {
+                return this.newCard.getValue().getNumber() > this.prevCards.get(0).getValue().getNumber();
+            } else {
+                return this.newCard.getValue().getNumber() < this.prevCards.get(0).getValue().getNumber();
+            }
+
+        } else {
+            int maxVal = Math.max(this.prevCards.get(0).getValue().getNumber(), this.prevCards.get(1).getValue().getNumber());
+            int minVal = Math.min(this.prevCards.get(0).getValue().getNumber(), this.prevCards.get(1).getValue().getNumber());
+            if (choice == Choice.IN.getValue()) {
+                return this.newCard.getValue().getNumber() > minVal && this.newCard.getValue().getNumber() < maxVal;
+            } else {
+                return this.newCard.getValue().getNumber() < minVal || this.newCard.getValue().getNumber() > maxVal;
+            }
+
+        }
 
     }
+
     public void update(float delta){
-        getNextCard();
+        if (!this.deck.isEmpty()) {
+            System.out.printf("New game phase: %s\n", this.phase.name());
+            getNextCard();
+            int choice = getChoice();
+            System.out.printf("Choice was number %d\n", choice);
+            this.wasCorrect = isCorrect(choice);
+            System.out.printf("Choice was %b\n", wasCorrect);
+            updatePrevCards();
+            updateGamePhase();
+        }
+
         updateMenu();
     }
 
     public void getNextCard() {
-        if (!deck.isEmpty()) {
-            Card newCard = deck.getCard();
-            System.out.printf("card is %s (%d) of %s, a %s card.\n", newCard.getValue(), newCard.getValue().getNumber(), newCard.getSuit(), newCard.getColour());
+        if (!this.deck.isEmpty()) {
+            this.newCard = this.deck.getCard();
+            System.out.printf("New card is %s (%d) of %s, a %s card.\n", this.newCard.getValue(),
+                    this.newCard.getValue().getNumber(), this.newCard.getSuit(), this.newCard.getColour());
+        }
+    }
+
+    public int getChoice() {
+        return RANDOM.nextInt(2);
+    }
+
+    public void updatePrevCards() {
+        if (this.phase == GamePhase.INOUT || !this.wasCorrect) {
+            this.prevCards.clear();
+        } else {
+            this.prevCards.add(0, this.newCard);
+        }
+    }
+
+    public void updateGamePhase() {
+        if (this.wasCorrect) {
+            int nextPhaseOrd = (this.phase.ordinal() + 1) % 3;
+            this.phase = GamePhase.values()[nextPhaseOrd];
+        } else {
+            this.phase = GamePhase.REDBLACK;
         }
     }
 
