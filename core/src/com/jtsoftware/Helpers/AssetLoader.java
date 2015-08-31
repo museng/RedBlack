@@ -12,7 +12,7 @@ public class AssetLoader {
     public static Texture cardTexture, testCard;
 
     public static TextureRegion[] cards;
-    public static TextureRegion logo, testAce,anotherTest;
+    public static TextureRegion logo, faceDownCard;
     public static Texture logoTexture,flatCards;
 
 
@@ -34,6 +34,7 @@ public class AssetLoader {
             cards[i].flip(false,true);
 
         }
+        faceDownCard = new TextureRegion(flatCards,gap*14,0,255,380);
 
         logo = new TextureRegion(logoTexture,0 ,0, 415,295);
 

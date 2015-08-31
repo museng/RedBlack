@@ -1,7 +1,9 @@
 package com.jtsoftware.GameWorld;
 
+import com.badlogic.gdx.Gdx;
 import com.jtsoftware.GameObjects.Card;
 import com.jtsoftware.GameObjects.Deck;
+import com.jtsoftware.GameObjects.FaceDownCard;
 import com.jtsoftware.GameRenderer.GameRenderer;
 import com.jtsoftware.Helpers.ActionResolver;
 
@@ -12,7 +14,10 @@ import java.util.Random;
  * Created by Jonty on 24/08/2015.
  */
 public class GameWorld {
-    private enum GamePhase {REDBLACK, UPDOWN, INOUT}
+
+    private FaceDownCard fdCard;
+
+    public enum GamePhase {REDBLACK, UPDOWN, INOUT}
     private enum Choice {RED(0), BLACK(1), UP(0), DOWN(1), IN(0), OUT(1);
         private int choiceValue;
         private Choice(int value) {
@@ -31,6 +36,8 @@ public class GameWorld {
     private ArrayList<Card> prevCards;
     private Random RANDOM = new Random();
 
+    public float gameWidth, gameHeight;
+
 
     public GameWorld(ActionResolver resolver){
         this.wasCorrect = true;
@@ -38,6 +45,14 @@ public class GameWorld {
         this.phase = GamePhase.REDBLACK;
         this.deck = new Deck();
         this.prevCards = new ArrayList<Card>();
+
+        this.fdCard = new FaceDownCard();
+
+        float screenWidth = Gdx.graphics.getWidth();
+        float screenHeight = Gdx.graphics.getHeight();
+        this.gameWidth = 136;
+        this.gameHeight = screenHeight / (screenWidth / gameWidth);
+
     }
 
     public boolean isCorrect(int choice) {
@@ -76,11 +91,16 @@ public class GameWorld {
             System.out.printf("Choice was number %d\n", choice);
             this.wasCorrect = isCorrect(choice);
             System.out.printf("Choice was %b\n", wasCorrect);
-            updatePrevCards();
-            updateGamePhase();
+//            updatePrevCards();
+//            updateGamePhase();
+
         }
 
         updateMenu();
+    }
+
+    public FaceDownCard faceDownCard(){
+        return this.fdCard;
     }
 
     public void getNextCard() {
@@ -112,9 +132,18 @@ public class GameWorld {
         }
     }
 
+
+
+
+    public boolean isPhaseRedBlack(){
+        return phase == GamePhase.REDBLACK;
+    }
+
     public void updateMenu(){
 
     }
+
+
     public void setRenderer(GameRenderer renderer) {
         this.renderer = renderer;
     }

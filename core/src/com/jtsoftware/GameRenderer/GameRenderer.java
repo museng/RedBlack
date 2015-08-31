@@ -43,7 +43,7 @@ public class GameRenderer {
         batcher.begin();
 
         int row = 0;
-        boolean seizure = true;
+        boolean seizure = false;
 
 
         if(!seizure) {
@@ -63,6 +63,8 @@ public class GameRenderer {
             batcher.draw(AssetLoader.cards[c], x, y, AssetLoader.cards[c].getRegionWidth() / 6, AssetLoader.cards[c].getRegionHeight() / 6);
 
         }
+
+        world.faceDownCard().draw(batcher);
 
         batcher.end();
 

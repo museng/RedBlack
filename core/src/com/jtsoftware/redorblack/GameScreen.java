@@ -1,10 +1,12 @@
 package com.jtsoftware.redorblack;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.jtsoftware.GameRenderer.GameRenderer;
 import com.jtsoftware.GameWorld.GameWorld;
 import com.jtsoftware.Helpers.ActionResolver;
+import com.jtsoftware.Helpers.InputHandler;
 import com.jtsoftware.Helpers.SimpleDirectionGestureDetector;
 
 /**
@@ -32,10 +34,12 @@ public class GameScreen implements Screen {
         int midPointY = (int) (gameHeight / 2);
         world = new GameWorld(resolver);
 
-        Gdx.input.setInputProcessor(new SimpleDirectionGestureDetector(new SimpleDirectionGestureDetector.DirectionListener() {
+        InputMultiplexer multiplexer = new InputMultiplexer();
+        multiplexer.addProcessor(new SimpleDirectionGestureDetector(new SimpleDirectionGestureDetector.DirectionListener() {
+
             @Override
             public void onUp() {
-               System.out.println("Jumped up!!");
+
             }
 
             @Override
@@ -47,7 +51,6 @@ public class GameScreen implements Screen {
             @Override
             public void onLeft() {
 
-
             }
 
             @Override
@@ -55,8 +58,12 @@ public class GameScreen implements Screen {
                 // TODO Auto-generated method stub
 
             }
-
         }));
+
+
+        multiplexer.addProcessor(new InputHandler(world, screenWidth / gameWidth, screenHeight / gameHeight, resolver));
+        Gdx.input.setInputProcessor(multiplexer);
+
 
         renderer = new GameRenderer(world, (int) gameHeight);
         world.setRenderer(renderer);
