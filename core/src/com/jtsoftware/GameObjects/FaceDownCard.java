@@ -115,12 +115,12 @@ public class FaceDownCard {
     public Color getSwipeColor() {
 
         float angle = swipeDistance;
-
+        angle = (1/(100/angle));
         if(angle < 0){
             swipeColor = new Color(1,0,0,Math.abs(angle));
         }
         else{
-            swipeColor = new Color(1,1,1,Math.abs(angle));
+            swipeColor = new Color(0,0,0,Math.abs(angle));
         }
         return swipeColor;
     }

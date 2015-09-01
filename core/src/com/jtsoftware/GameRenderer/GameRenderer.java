@@ -71,14 +71,15 @@ public class GameRenderer {
 
 
         batcher.end();
-/*
-        shapeRenderer.begin();
+
+        Gdx.gl.glEnable(GL30.GL_BLEND);
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         Color swipeColor = world.faceDownCard().getSwipeColor();
         shapeRenderer.setColor(swipeColor);
-        shapeRenderer.rect(0, 50, 150, 300);
+        shapeRenderer.rect(0, 70, 150, 300);
 
         shapeRenderer.end();
-*/
+
 
     }
 }
