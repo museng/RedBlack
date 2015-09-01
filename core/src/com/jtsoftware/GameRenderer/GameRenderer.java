@@ -1,6 +1,7 @@
 package com.jtsoftware.GameRenderer;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -8,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.jtsoftware.GameWorld.GameWorld;
 import com.jtsoftware.Helpers.AssetLoader;
+
 
 import java.util.Random;
 
@@ -66,9 +68,17 @@ public class GameRenderer {
 
         world.faceDownCard().draw(batcher);
 
+
+
         batcher.end();
+/*
+        shapeRenderer.begin();
+        Color swipeColor = world.faceDownCard().getSwipeColor();
+        shapeRenderer.setColor(swipeColor);
+        shapeRenderer.rect(0, 50, 150, 300);
 
-
+        shapeRenderer.end();
+*/
 
     }
 }

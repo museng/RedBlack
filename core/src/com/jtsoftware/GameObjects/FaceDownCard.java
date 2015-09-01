@@ -1,8 +1,11 @@
 package com.jtsoftware.GameObjects;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.jtsoftware.Helpers.AssetLoader;
+
+
 
 /**
  * Created by Jonty on 31/08/2015.
@@ -18,6 +21,8 @@ public class FaceDownCard {
     private boolean pressed;
     private float pressOrigin, x, y;
     private Sprite sprite;
+    private Color swipeColor;
+    private float swipeDistance;
     public FaceDownCard(){
         this.pressed = false;
 
@@ -37,13 +42,18 @@ public class FaceDownCard {
     public void updateCard(float xPressed, float yPressed){
 
         if(isPressed()){
+
+            this.swipeDistance = (xPressed - pressOrigin);
             System.out.println("card:" + pressOrigin + " : " + this.x);
-            this.x = -50 + (xPressed - pressOrigin);
+            this.x = -50 + swipeDistance;
             System.out.println("UPDATED X: " + this.x);
 
             sprite.setX(x);
 
-            this.sprite.rotate((xPressed - pressOrigin)/100);
+//            this.sprite.rotate((xPressed - pressOrigin) / 100);
+            this.sprite.setRotation(swipeDistance/3);
+
+            System.out.println("ROTATION: " + this.sprite.getRotation() + "xPressed:"+xPressed+"pressOrigin:"+pressOrigin);
 
 
         }
@@ -57,6 +67,7 @@ public class FaceDownCard {
     public void draw(SpriteBatch b){
 
         sprite.draw(b);
+
 
         //b.draw(this.sprite,this.x,this.y);
     }
@@ -100,4 +111,19 @@ public class FaceDownCard {
 
         return pressOrigin;
     }
+
+    public Color getSwipeColor() {
+
+        float angle = swipeDistance;
+
+        if(angle < 0){
+            swipeColor = new Color(1,0,0,Math.abs(angle));
+        }
+        else{
+            swipeColor = new Color(1,1,1,Math.abs(angle));
+        }
+        return swipeColor;
+    }
+
+
 }
