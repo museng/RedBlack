@@ -6,6 +6,7 @@ import com.jtsoftware.GameObjects.Deck;
 import com.jtsoftware.GameObjects.FaceDownCard;
 import com.jtsoftware.GameRenderer.GameRenderer;
 import com.jtsoftware.Helpers.ActionResolver;
+import com.jtsoftware.Helpers.AssetLoader;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -16,6 +17,7 @@ import java.util.Random;
 public class GameWorld {
 
     private FaceDownCard fdCard;
+
 
     public enum GamePhase {REDBLACK, UPDOWN, INOUT}
     private enum Choice {RED(0), BLACK(1), UP(0), DOWN(1), IN(0), OUT(1);
@@ -40,19 +42,21 @@ public class GameWorld {
 
 
     public GameWorld(ActionResolver resolver){
+
         this.wasCorrect = true;
         this.resolver = resolver;
         this.phase = GamePhase.REDBLACK;
         this.deck = new Deck();
         this.prevCards = new ArrayList<Card>();
 
-        this.fdCard = new FaceDownCard();
+
 
         float screenWidth = Gdx.graphics.getWidth();
         float screenHeight = Gdx.graphics.getHeight();
         this.gameWidth = 136;
         this.gameHeight = screenHeight / (screenWidth / gameWidth);
 
+        this.fdCard = new FaceDownCard(gameWidth, gameHeight);
     }
 
     public boolean isCorrect(int choice) {
@@ -91,10 +95,11 @@ public class GameWorld {
             System.out.printf("Choice was number %d\n", choice);
             this.wasCorrect = isCorrect(choice);
             System.out.printf("Choice was %b\n", wasCorrect);
-//            updatePrevCards();
-//            updateGamePhase();
+
 
         }
+
+
 
         updateMenu();
     }

@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.jtsoftware.GameWorld.GameWorld;
@@ -20,10 +21,10 @@ public class GameRenderer {
     private SpriteBatch batcher;
     private OrthographicCamera cam;
     private ShapeRenderer shapeRenderer;
-
+    BitmapFont font;
     private Texture testCard;
     GameWorld world;
-    public GameRenderer(GameWorld world, int gameHeight){
+    public GameRenderer(GameWorld world, float gameHeight){
         this.world = world;
         cam = new OrthographicCamera();
         cam.setToOrtho(true, 136, gameHeight);
@@ -35,11 +36,16 @@ public class GameRenderer {
         shapeRenderer = new ShapeRenderer();
         shapeRenderer.setProjectionMatrix(cam.combined);
 
+
+
+//        FreeTypeFontGenerator generator = new FreeTypeFontGEnerator();
+//        font = new BitmapFont(Gdx.files.internal("Papy.fnt"));
+
     }
 
     public void render(float delta){
 
-        Gdx.gl.glClearColor(0, 0, 0, 0);
+        Gdx.gl.glClearColor(0.9f, 0.9f, 0.9f, .5f);
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
 
         batcher.begin();
@@ -48,37 +54,47 @@ public class GameRenderer {
         boolean seizure = false;
 
 
-        if(!seizure) {
-            for (int i = 0; i < 15; i++) {
-
-                if ((i > 2) && (i % 3 == 0)) row++;
-                batcher.draw(AssetLoader.cards[i], ((i % 3) * 50), (row * 80), AssetLoader.cards[i].getRegionWidth() / 6, AssetLoader.cards[i].getRegionHeight() / 6);
-                //System.out.println("pasting card at i="+(i*40)+" y=" + (j*80) + "res="+AssetLoader.cards[i].getRegionWidth()/6+"x"+AssetLoader.cards[i].getRegionHeight()/6);
 
 
-            }
-        }
-        else{
-            int x = new Random().nextInt(100);
-            int y = new Random().nextInt(300);
-            int c = new Random().nextInt(15);
-            batcher.draw(AssetLoader.cards[c], x, y, AssetLoader.cards[c].getRegionWidth() / 6, AssetLoader.cards[c].getRegionHeight() / 6);
-
-        }
 
         world.faceDownCard().draw(batcher);
+
+        batcher.draw(AssetLoader.title, 10, 26, AssetLoader.title.getRegionWidth() / 4, AssetLoader.title.getRegionHeight() / 4);
+
 
 
 
         batcher.end();
 
+
         Gdx.gl.glEnable(GL30.GL_BLEND);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         Color swipeColor = world.faceDownCard().getSwipeColor();
         shapeRenderer.setColor(swipeColor);
-        shapeRenderer.rect(0, 70, 150, 300);
+        shapeRenderer.rect(0, 50, 150, 300);
 
         shapeRenderer.end();
+
+
+        batcher.begin();
+        batcher.enableBlending();
+        // Drawing the corrosponding text to what move is made. (Red left, Black right)
+        switch(world.faceDownCard().leftOrRightSwipe()){
+            case -1:
+
+                batcher.draw(AssetLoader.red, 64 - AssetLoader.red.getRegionWidth()/10, 60, AssetLoader.red.getRegionWidth()/5, AssetLoader.red.getRegionHeight()/5);
+                break;
+            case 1:
+                batcher.draw(AssetLoader.black, 64 -AssetLoader.black.getRegionWidth() /10, 60, AssetLoader.black.getRegionWidth()/5, AssetLoader.black.getRegionHeight()/5);
+                break;
+            default:
+                break;
+
+        }
+
+        batcher.end();
+
+
 
 
     }

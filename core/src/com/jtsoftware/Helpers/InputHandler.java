@@ -40,7 +40,7 @@ public class InputHandler implements InputProcessor {
 
         screenX = scaleX(screenX);
         screenY = scaleY(screenY);
-        world.faceDownCard().press(screenX);
+        world.faceDownCard().press(screenX, screenY);
 
         System.out.println(world.isPhaseRedBlack());
 

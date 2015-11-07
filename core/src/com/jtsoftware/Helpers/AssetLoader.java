@@ -12,7 +12,7 @@ public class AssetLoader {
     public static Texture cardTexture, testCard;
 
     public static TextureRegion[] cards;
-    public static TextureRegion logo, faceDownCard;
+    public static TextureRegion logo, faceDownCard, title, red, black;
     public static Texture logoTexture,flatCards;
 
 
@@ -37,18 +37,23 @@ public class AssetLoader {
         faceDownCard = new TextureRegion(flatCards,gap*14,0,255,380);
 
         logo = new TextureRegion(logoTexture,0 ,0, 415,295);
-
-
+        red = new TextureRegion(flatCards, 0, 1952, 254, 96);
+        red.flip(false, true);
+        black = new TextureRegion(flatCards, 264, 1952,392, 96);
+        black.flip(false, true);
         //testAce = new TextureRegion(testCard);
 
+        /**      WORDS **/
 
+        title = new TextureRegion(flatCards,0,1893,415,59);
+        title.flip(false, true);
 
 
     }
     public static void dispose() {
 
 
-        ;
+
 
     }
 }
