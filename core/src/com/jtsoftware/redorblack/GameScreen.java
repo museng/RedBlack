@@ -28,6 +28,7 @@ public class GameScreen implements Screen {
         float screenWidth = Gdx.graphics.getWidth();
         float screenHeight = Gdx.graphics.getHeight();
         float gameWidth = 136;
+        //float gameWidth = 600;
         float gameHeight = screenHeight / (screenWidth / gameWidth);
         this.resolver = resolver;
 

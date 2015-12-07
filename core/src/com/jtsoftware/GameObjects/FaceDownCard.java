@@ -57,7 +57,7 @@ public class FaceDownCard {
 //            this.sprite.rotate((xPressed - pressOrigin) / 100);
             this.sprite.setRotation(swipeDistance/4); //originally 3
 
-            System.out.println("ROTATION: " + this.sprite.getRotation() + "xPressed:"+xPressed+"pressOrigin:"+pressOriginX);
+            //System.out.println("ROTATION: " + this.sprite.getRotation() + "xPressed:"+xPressed+"pressOrigin:"+pressOriginX);
 
 
         }

@@ -4,6 +4,8 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 import com.jtsoftware.GameWorld.GameWorld;
 
+import org.omg.PortableInterceptor.SUCCESSFUL;
+
 /**
  * Created by Jonty on 23/08/2015.
  */
@@ -42,7 +44,7 @@ public class InputHandler implements InputProcessor {
         screenY = scaleY(screenY);
         world.faceDownCard().press(screenX, screenY);
 
-        System.out.println(world.isPhaseRedBlack());
+        //System.out.println(world.isPhaseRedBlack());
 
 
 
@@ -51,23 +53,39 @@ public class InputHandler implements InputProcessor {
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        if(world.isPhaseRedBlack()){
+
+        if(world.state == GameWorld.GameState.CORRECT || world.state == GameWorld.GameState.INCORRECT){
+
+            world.updateGamePhase();
+        }
+        else{
             System.out.println("Unpressed!");
             if(world.faceDownCard().isPressed()){
+                if(world.faceDownCard().leftOrRightSwipe() == -1){
+                    world.choice.setChoice(0);
+                    world.state = GameWorld.GameState.CARDPICKED;
+                }
+                else if(world.faceDownCard().leftOrRightSwipe() == 1){
+                    world.choice.setChoice(1);
+                    world.state = GameWorld.GameState.CARDPICKED;
+                }
+
                 world.faceDownCard().Unpress();
                 world.faceDownCard().reset();
+
             }
         }
+
         return false;
     }
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
-        System.out.println("draaaagged + " + screenX);
+        //System.out.println("draaaagged + " + screenX);
         screenX = scaleX(screenX);
         screenY = scaleY(screenY);
 
-        if(world.isPhaseRedBlack()){
+        if(world.state == GameWorld.GameState.ROUND){
 
             if(world.faceDownCard().isPressed()){
 

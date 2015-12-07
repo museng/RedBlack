@@ -1,5 +1,10 @@
 package com.jtsoftware.GameObjects;
 
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.jtsoftware.Helpers.AssetLoader;
+
+import java.awt.Color;
+
 /**
  * Created by Jonty on 23/08/2015.
  */
@@ -33,10 +38,11 @@ public class Card {
     }
     public enum Suit
     {
-        CLUBS,
         SPADES,
-        HEARTS,
-        DIAMONDS;
+        CLUBS,
+        DIAMONDS,
+        HEARTS;
+
     };
 
     public enum Colour {RED, BLACK};
@@ -54,6 +60,13 @@ public class Card {
         } else {
             this.colour = Colour.RED;
         }
+    }
+    public TextureRegion getAsset(){
+        //int cardNo = (getSuit().ordinal() + 1) * (getValue().ordinal() +1) -1;
+        int cardNo = ((13*getSuit().ordinal()) + getValue().ordinal());
+        System.out.println("Card Number: " +cardNo );
+        return AssetLoader.cards[cardNo];
+
     }
 
     public Suit getSuit() {
