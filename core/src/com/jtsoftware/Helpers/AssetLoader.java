@@ -12,7 +12,7 @@ public class AssetLoader {
     public static Texture cardTexture, testCard;
 
     public static TextureRegion[] cards;
-    public static TextureRegion logo, faceDownCard, title, red, black,correctPopup, incorrectPopup,bottle,tick,higher,lower,arrow;
+    public static TextureRegion logo, faceDownCard, title, red, black,correctPopup, incorrectPopup,bottle,tick,higher,lower,inside,outside,arrow;
     public static Texture logoTexture,flatCards;
 
 
@@ -52,6 +52,12 @@ public class AssetLoader {
         higher.flip(false, true);
         lower = new TextureRegion(flatCards,1128,1943,441,105);
         lower.flip(false, true);
+
+        inside = new TextureRegion(flatCards,654,1807,429,105);
+        inside.flip(false, true);
+        outside = new TextureRegion(flatCards,1090,1813,549,108);
+        outside.flip(false, true);
+
         //testAce = new TextureRegion(testCard);
 
         /**      WORDS **/

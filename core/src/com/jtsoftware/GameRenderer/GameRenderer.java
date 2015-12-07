@@ -98,6 +98,11 @@ public class GameRenderer {
                         break;
                     case UPDOWN:
                         batcher.draw(AssetLoader.lower, 64- AssetLoader.lower.getRegionWidth() /10, 60, AssetLoader.lower.getRegionWidth() /5, AssetLoader.lower.getRegionHeight() /5);
+                        break;
+                    case INOUT:
+                        batcher.draw(AssetLoader.inside, 64- AssetLoader.inside.getRegionWidth() /10, 60, AssetLoader.inside.getRegionWidth() /5, AssetLoader.inside.getRegionHeight() /5);
+                        break;
+
                 }break;
 
             case 1:
@@ -109,6 +114,10 @@ public class GameRenderer {
                     case UPDOWN:
                         batcher.draw(AssetLoader.higher, 64 - AssetLoader.higher.getRegionWidth() / 10, 60, AssetLoader.higher.getRegionWidth() / 5, AssetLoader.higher.getRegionHeight() / 5);
                         break;
+                    case INOUT:
+                        batcher.draw(AssetLoader.outside, 64- AssetLoader.outside.getRegionWidth() /10, 60, AssetLoader.outside.getRegionWidth() /5, AssetLoader.outside.getRegionHeight() /5);
+                        break;
+
                 }
                 break;
             default:
