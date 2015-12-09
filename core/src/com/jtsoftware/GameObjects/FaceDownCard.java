@@ -77,10 +77,10 @@ public class FaceDownCard {
     }
     public int leftOrRightSwipe(){
 
-        if(swipeDistance < -30){
+        if(swipeDistance < -50){
             return -1;
         }
-        else if(swipeDistance > 30){
+        else if(swipeDistance > 50){
             return 1;
 
         }

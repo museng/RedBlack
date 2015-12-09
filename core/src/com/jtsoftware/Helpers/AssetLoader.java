@@ -12,7 +12,7 @@ public class AssetLoader {
     public static Texture cardTexture, testCard;
 
     public static TextureRegion[] cards;
-    public static TextureRegion logo, faceDownCard, title, red, black,correctPopup, incorrectPopup,bottle,tick,higher,lower,inside,outside,arrow;
+    public static TextureRegion logo, faceDownCard, title, red, black,correctPopup, incorrectPopup,bottle,tick,higher,lower,inside,outside,arrow, club, spade, heart, diamond;
     public static Texture logoTexture,flatCards;
 
 
@@ -80,6 +80,10 @@ public class AssetLoader {
 
         tick = new TextureRegion(flatCards, 0,1659,261,228);
         tick.flip(false, true);
+
+        /**  SUIT ASSETS **/
+
+
 
 
     }

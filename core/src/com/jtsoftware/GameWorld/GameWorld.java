@@ -120,6 +120,7 @@ public class GameWorld {
             switch(state){
                 case CARDPICKED:
                     handleDraw();
+                    updatePrevCards();
                     break;
 
                 case CORRECT:
@@ -168,12 +169,12 @@ public class GameWorld {
     }
 
     public void updatePrevCards() {
-        if ( !this.wasCorrect) {
+        if (this.phase == GamePhase.INOUT || !this.wasCorrect) {
             this.prevCards.clear();
         } else {
-            if(this.phase != GamePhase.REDBLACK){
+            //if(this.phase != GamePhase.REDBLACK){
                 this.prevCards.add(0, this.newCard);
-            }
+            //}
 
         }
     }
@@ -187,6 +188,7 @@ public class GameWorld {
             this.state = GameState.ROUND;
         }
         else{
+            prevCards.clear();
             state = GameState.ROUND;
             phase = GamePhase.REDBLACK;
         }
@@ -211,9 +213,12 @@ public class GameWorld {
     public FeedbackDialog getDialog() {
         return this.dialog;
     }
+    public ArrayList<Card> getPrevCards(){
+        return prevCards;
+    }
 
     public void handleDraw() {
-        updatePrevCards();
+        //updatePrevCards();
         getNextCard();
 
         //Suits need to match.

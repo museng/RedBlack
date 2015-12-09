@@ -64,7 +64,7 @@ public class Card {
     public TextureRegion getAsset(){
         //int cardNo = (getSuit().ordinal() + 1) * (getValue().ordinal() +1) -1;
         int cardNo = ((13*getSuit().ordinal()) + getValue().ordinal());
-        System.out.println("Card Number: " +cardNo );
+
         return AssetLoader.cards[cardNo];
 
     }

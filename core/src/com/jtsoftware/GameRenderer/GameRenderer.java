@@ -138,6 +138,11 @@ public class GameRenderer {
             renderDialog();
         }
 
+        for(int x = 0; x < world.getPrevCards().size(); x++){
+            int latest = world.getPrevCards().size() -1 -x;
+            float offset = x * (AssetLoader.cards[0].getRegionWidth()/24);
+            batcher.draw(world.getPrevCards().get(latest).getAsset(),5 + offset,5,AssetLoader.cards[4].getRegionWidth()/12, AssetLoader.cards[4].getRegionHeight()/12);
+        }
 
 
         batcher.end();
