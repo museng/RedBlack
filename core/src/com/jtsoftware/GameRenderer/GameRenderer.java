@@ -45,10 +45,6 @@ public class GameRenderer {
 
 
 
-
-//        FreeTypeFontGenerator generator = new FreeTypeFontGEnerator();
-//        font = new BitmapFont(Gdx.files.internal("Papy.fnt"));
-
     }
 
     public void render(float delta){

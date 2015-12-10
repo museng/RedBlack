@@ -21,10 +21,12 @@ public class FaceDownCard {
     private int swipeLeftOrRight; // -1 for left swiped, 1 for right swipe, 0 for neither.
 
     private boolean pressed;
+    private boolean pressedBottom;
     private float pressOriginX, pressOriginY, x, y, screenX, screenY;
     private Sprite sprite;
     private Color swipeColor;
     private float swipeDistance;
+
     public FaceDownCard(final float screenX,final float screenY){
         this.pressed = false;
         this.screenX = screenX;
@@ -55,8 +57,8 @@ public class FaceDownCard {
 //            sprite.setY(y);
                 sprite.setCenter(x, y);
 //            this.sprite.rotate((xPressed - pressOrigin) / 100);
-            this.sprite.setRotation(swipeDistance/4); //originally 3
-
+            if(!pressedBottom)this.sprite.setRotation(swipeDistance/4); //originally 3
+            else this.sprite.setRotation(-(swipeDistance/4));
             //System.out.println("ROTATION: " + this.sprite.getRotation() + "xPressed:"+xPressed+"pressOrigin:"+pressOriginX);
 
 
@@ -108,7 +110,9 @@ public class FaceDownCard {
     }
     public void press(float x, float y){
         this.pressed = true;
-
+        if(y >  200){
+            pressedBottom = true;
+        }else pressedBottom = false;
         this.pressOriginX = x;
         this.pressOriginY = y;
 
